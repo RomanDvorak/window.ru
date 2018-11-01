@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded', function() {
   callEngineerBtn.addEventListener('click', function() {
     engineerPopup.style.display = 'block';
   });
-  engineerPopupClose.addEventListener('click', function() {
-    engineerPopup.style.display = 'none';
+  document.addEventListener('click', function(e) {
+    if(e.target.parentNode.classList.contains('popup_close') || e.target.classList.contains('popup_engineer')) {
+      engineerPopup.style.display = 'none';
+    }
   });
 });
