@@ -11,7 +11,8 @@ window.addEventListener('DOMContentLoaded', function() {
     engineerPopup.style.display = 'block';
   });
   document.addEventListener('click', function(e) {
-    if(e.target.parentNode.classList.contains('popup_close') || e.target.classList.contains('popup_engineer')) {
+    if(e.target.parentNode.classList.contains('popup_close') ||
+     e.target.classList.contains('popup_engineer')) {
       engineerPopup.style.display = 'none';
     }
   });
@@ -21,15 +22,13 @@ window.addEventListener('DOMContentLoaded', function() {
   let phones = document.querySelectorAll('.phone_link'),
       phonesPopup = document.querySelector('.popup');
 
-  for (let i = 0; i < phones.length; i++) {
-    phones[i].addEventListener('click', function(e) {
-      e.preventDefault();
-      phonesPopup.style.display = 'block';
-    });
-  }
   document.addEventListener('click', function(e) {
-    if(e.target.parentNode.classList.contains('popup_close') || e.target.classList.contains('popup')) {
+    e.preventDefault();
+    if(e.target.parentNode.classList.contains('popup_close') ||
+     e.target.classList.contains('popup')) {
       phonesPopup.style.display = 'none';
+    } else if (e.target.classList.contains('phone_link')) {
+      phonesPopup.style.display = 'block';
     }
   });
 
