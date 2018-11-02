@@ -4,8 +4,7 @@ window.addEventListener('DOMContentLoaded', function() {
   // first popup
   let callEngineerBtn = document.querySelector('.popup_engineer_btn'),
       engineerPopup = document.querySelector('.popup_engineer'),
-      engineerPopupDialog = engineerPopup.querySelector('.popup_dialog'),
-      engineerPopupContent = engineerPopupDialog.querySelector('.popup_content');
+      engineerPopupDialog = engineerPopup.querySelector('.popup_dialog');
 
   callEngineerBtn.addEventListener('click', function() {
     engineerPopup.style.display = 'block';
@@ -19,8 +18,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // phones
 
-  let phones = document.querySelectorAll('.phone_link'),
-      phonesPopup = document.querySelector('.popup');
+  let phonesPopup = document.querySelector('.popup');
 
   document.addEventListener('click', function(e) {
     e.preventDefault();
@@ -31,5 +29,9 @@ window.addEventListener('DOMContentLoaded', function() {
       phonesPopup.style.display = 'block';
     }
   });
+
+  // 60 seconds popup
+
+  setTimeout(function() { phonesPopup.style.display = 'block'; }, 60000);
 
 });
