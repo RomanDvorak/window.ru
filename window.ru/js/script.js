@@ -23,8 +23,10 @@ window.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     if(e.target.parentNode.classList.contains('popup_close') ||
      e.target.classList.contains('popup')) {
+       e.preventDefault();
       phonesPopup.style.display = 'none';
     } else if (e.target.classList.contains('phone_link')) {
+        e.preventDefault();
       phonesPopup.style.display = 'block';
     }
   });
