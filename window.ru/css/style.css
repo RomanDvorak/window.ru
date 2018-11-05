@@ -568,6 +568,24 @@ textarea:focus {
 .payment_img img {
   margin-right: 2rem;
 }
+.status-ico {
+  width: 50px;
+  vertical-align: middle;
+}
+.status-ico-div {
+ margin-top: 15px;
+}
+.status-ico-div-span {
+ vertical-align: middle;
+ margin-left: 15px;
+ color: #000;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
 /*Sale*/
 .sale {
   padding: 8rem 0;
