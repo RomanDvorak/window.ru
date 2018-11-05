@@ -147,25 +147,28 @@ window.addEventListener('DOMContentLoaded', function() {
          }
          target.classList.add('active');
         for(let i = 0;i< tab.length; i++) {
-          if (target ==tab[i]) {
             hideTabContent(0);
-            if (target.classList.contains('treeSelector')) {
+            if (target.classList.contains('treeSelector') ||
+             target.parentNode.classList.contains('treeSelector')) {
               showTabContent(0);
             }
-            else if(target.classList.contains('aluminumSelector')) {
+            else if(target.classList.contains('aluminumSelector') ||
+             target.parentNode.classList.contains('aluminumSelector')) {
               showTabContent(1);
             }
-            else if(target.classList.contains('plasticSelector')) {
+            else if(target.classList.contains('plasticSelector') ||
+             target.parentNode.classList.contains('plasticSelector')) {
               showTabContent(2);
             }
-            else if(target.classList.contains('frenchSelector')) {
+            else if(target.classList.contains('frenchSelector') ||
+             target.parentNode.classList.contains('frenchSelector')) {
               showTabContent(3);
             }
-            else if(target.classList.contains('riseSelector')) {
+            else if(target.classList.contains('riseSelector') ||
+             target.parentNode.classList.contains('riseSelector')) {
               showTabContent(4);
             }
             break;
-          }
         }
       }
     });
