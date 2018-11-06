@@ -117,11 +117,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // tabs
     let tab = document.querySelectorAll('.firstTabSelect'),
-    treeSelector = document.querySelector('.treeSelector'),
-    aluminumSelector = document.querySelector('.aluminumSelector'),
-    plasticSelector = document.querySelector('.plasticSelector'),
-    frenchSelector = document.querySelector('.frenchSelector'),
-    riseSelector = document.querySelector('.riseSelector'),
+    treeLink = document.querySelector('.tree_link'),
+    aluminumLink = document.querySelector('.aluminum_link'),
+    plasticLink = document.querySelector('.plastic_link'),
+    frenchLink = document.querySelector('.french_link'),
+    riseLink = document.querySelector('.rise_link'),
     info = document.querySelector(".firstTabInfo"),
     tabContent = document.querySelectorAll(".firstTabContent"),
     tabLink = document.querySelectorAll('.selectorLink');
@@ -144,26 +144,36 @@ window.addEventListener('DOMContentLoaded', function() {
   
     info.addEventListener('click', function(event) {
       let target = event.target;
-      if (target && target.classList.contains('selectorLink')) {
+      if (target && (target.classList.contains('tabSelector') || target.parentNode.classList.contains('tabSelector'))) {
          for (let i = 0; i < tab.length; i++) {
            tabLink[i].classList.remove('active');
          }
-         target.classList.add('active');
+         
         for(let i = 0;i< tab.length; i++) {
             hideTabContent(0);
-            if (target.classList.contains('treeSelector')) {
+            if (target.classList.contains('treeSelector') ||
+             target.parentNode.classList.contains('treeSelector')) {
+              treeLink.classList.add('active');
               showTabContent(0);
             }
-            else if(target.classList.contains('aluminumSelector')) {
+            else if(target.classList.contains('aluminumSelector') ||
+             target.parentNode.classList.contains('aluminumSelector')) {
+              aluminumLink.classList.add('active');
               showTabContent(1);
             }
-            else if(target.classList.contains('plasticSelector')) {
+            else if(target.classList.contains('plasticSelector') ||
+             target.parentNode.classList.contains('plasticSelector')) {
+              plasticLink.classList.add('active');
               showTabContent(2);
             }
-            else if(target.classList.contains('frenchSelector')) {
+            else if(target.classList.contains('frenchSelector') ||
+             target.parentNode.classList.contains('frenchSelector')) {
+              frenchLink.classList.add('active');
               showTabContent(3);
             }
-            else if(target.classList.contains('riseSelector')) {
+            else if(target.classList.contains('riseSelector') ||
+             target.parentNode.classList.contains('riseSelector')) {
+              riseLink.classList.add('active');
               showTabContent(4);
             }
             break;
