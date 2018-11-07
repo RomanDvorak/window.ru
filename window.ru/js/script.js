@@ -337,6 +337,65 @@ window.addEventListener('DOMContentLoaded', function() {
         delete calcInfo[key];
     }
   });
+  // tabs 2
+  let secondTab = document.querySelectorAll('.decoration_item'),
+  secondInfo = document.querySelector(".decoration_slider"),
+  secondTabContent = document.querySelectorAll(".secondTabsContent"),
+  secondTabLink = document.querySelectorAll('.secondTabsLink'),
+  internalLink = document.querySelector('.internal_link'),
+  externalLink = document.querySelector('.external_link'),
+  risingLink = document.querySelector('.rising_link'),
+  roofLink = document.querySelector('.roof_link');
+
+  function hideTabContent2(a) {
+    for (let i = a; i < secondTabContent.length; i++) {
+      secondTabContent[i].classList.remove('show');
+      secondTabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent2(1);
+
+  function showTabContent2(b) {
+    if (secondTabContent[b].classList.contains('hide')) {
+      secondTabContent[b].classList.remove('hide');
+      secondTabContent[b].classList.add('show');
+    }
+  }
+
+  secondInfo.addEventListener('click', function(event) {
+    let target = event.target;
+    if (target && (target.classList.contains('secondTabsLink') || target.parentNode.classList.contains('secondTabsLink'))) {
+       for (let i = 0; i < secondTab.length; i++) {
+         secondTabLink[i].classList.remove('after_click');
+       }
+       
+      for(let i = 0;i< secondTab.length; i++) {
+          hideTabContent2(0);
+          if (target.classList.contains('internal_link') ||
+           target.parentNode.classList.contains('internal_link')) {
+            internalLink.classList.add('after_click');
+            showTabContent2(0);
+          }
+          else if(target.classList.contains('external_link') ||
+           target.parentNode.classList.contains('external_link')) {
+            externalLink.classList.add('after_click');
+            showTabContent2(1);
+          }
+          else if(target.classList.contains('rising_link') ||
+           target.parentNode.classList.contains('rising_link')) {
+            risingLink.classList.add('after_click');
+            showTabContent2(2);
+          }
+          else if(target.classList.contains('roof_link') ||
+           target.parentNode.classList.contains('roof_link')) {
+            roofLink.classList.add('after_click');
+            showTabContent2(3);
+          }
+          break;
+      }
+    }
+  });
 
 
 });
