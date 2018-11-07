@@ -806,6 +806,10 @@ textarea:focus {
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.balcon_icons_img {
+  width: 80px;
+  height: 40px;
+}
 .popup_calc_profile_content {
   position: fixed;
   top: 10%;
