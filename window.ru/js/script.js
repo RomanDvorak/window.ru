@@ -78,6 +78,13 @@ window.addEventListener('DOMContentLoaded', function() {
           formData.forEach(function(value, key) {
             obj[key] = value;
           });
+          if(elem.classList.contains('calcForm')) {
+            obj.height = calcInfo.height;
+            obj.width = calcInfo.width;
+            obj.selectedBalcony = calcInfo.selectedBalcony;
+            obj.checkbox = calcInfo.checkbox;
+            obj.select = calcInfo.select;
+          }
           let json = JSON.stringify(obj);
 
           request.onreadystatechange = function () {
@@ -181,7 +188,155 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-  
+  // calc
+
+  let calcBtns = document.querySelectorAll('.popup_calc_btn'),
+      calcClose1 = document.querySelector('.popup_calc_close'),
+      calcPopup1 = document.querySelector('.popup_calc'),
+      balconySelect = document.querySelector('.balcon_icons'),
+      smallBalconyImg = balconySelect.querySelectorAll('img'),
+      bigBalcony = document.querySelector('.big_img'),
+      bigBalconyImg = bigBalcony.querySelectorAll('img'),
+      calcPopup1Height = document.querySelector('#height'),
+      calcPopup1Width = document.querySelector('#width'),
+      calcPopup1Continue = document.querySelector('.popup_calc_button'),
+      calcPopupProfile = document.querySelector('.popup_calc_profile'),
+      calcPopupProfileClose = document.querySelector('.popup_calc_profile_close'),
+      calcPopupProfileSelect = document.querySelector('select.form-control'),
+      calcPopupProfileCheckboxCold = document.querySelectorAll('.checkbox')[0],
+      calcPopupProfileCheckboxWarm = document.querySelectorAll('.checkbox')[1],
+      calcPopupProfileContinue = document.querySelector('.popup_calc_profile_button'),
+      calcPopupEnd = document.querySelector('.popup_calc_end'),
+      calcPopupEndClose = document.querySelector('.popup_calc_end_close'),
+      calcInfo = {};
+
+  for (let i = 0; i < calcBtns.length; i++) {
+    showPopup(calcBtns[i], calcPopup1);
+  }
+  function showPopup(button, popup) {
+    button.addEventListener('click', function() {
+      popup.style.display = 'block';
+    });
+  }
+    calcClose1.addEventListener('click', function() {
+      calcPopup1.style.display = 'none';
+      for (let key in calcInfo) {
+          delete calcInfo[key];
+      }
+    });
+  balconySelect.addEventListener('click', function(e) {
+    let target = event.target;
+    if (target.tagName == 'IMG') {
+      e.preventDefault();
+      for (let i = 0; i < smallBalconyImg.length; i++) {
+        if (target == smallBalconyImg[i]) {
+          for (let j = 0; j < bigBalconyImg.length; j++) {
+            bigBalconyImg[j].style.display = 'none';
+            
+          }
+          for (let j = 0; j < smallBalconyImg.length; j++) {
+            animDecrease(smallBalconyImg[j]);
+          }
+          bigBalconyImg[i].style.display = 'inline-block';
+          animIncrease(smallBalconyImg[i]);
+          calcInfo.selectedBalcony = i + 1;
+        }
+      }
+    }
+  });
+  function animIncrease(elem) {
+    let width = elem.width,
+        height = elem.height,
+        id = requestAnimationFrame(increase);
+
+    function increase() {
+      if (width >= 110) {
+        clearInterval(id);
+      } else {
+        width = width + 1;
+        height = height + 1;
+        elem.style.height = height + 'px';
+        elem.style.width = width + 'px';
+        id = requestAnimationFrame(increase);
+      }
+    }
+  }
+  function animDecrease(elem) {
+    let width = elem.width,
+        height = elem.height,
+        id = requestAnimationFrame(decrease);
+
+    function decrease() {
+      if (width == 80 && height == 40) {
+        clearInterval(id);
+      } else {
+        width = width - 1;
+        height = height - 1;
+        elem.style.height = height + 'px';
+        elem.style.width = width + 'px';
+        id = requestAnimationFrame(decrease);
+      }
+    }
+  }
+
+  calcPopup1Height.addEventListener('input', function() {
+    calcPopup1Height.value = calcPopup1Height.value.replace(/\D/g, '');
+  });
+  calcPopup1Width.addEventListener('input', function() {
+    calcPopup1Width.value = calcPopup1Width.value.replace(/\D/g, '');
+  });
+
+  calcPopup1Continue.addEventListener('click', function(e) {
+    if(calcPopup1Height.value == '' || calcPopup1Width.value == '') {
+      e.preventDefault();
+    } else {
+      calcInfo.width = calcPopup1Width.value;
+      calcInfo.height = calcPopup1Height.value;
+      if (calcInfo.selectedBalcony == undefined) {
+        calcInfo.selectedBalcony = 1;
+      }
+      calcPopup1.style.display = 'none';
+      calcPopupProfile.style.display = 'block';
+    }
+  });
+  calcPopupProfileClose.addEventListener('click', function() {
+    calcPopupProfile.style.display = 'none';
+    for (let key in calcInfo) {
+      delete calcInfo[key];
+    }
+  });
+  calcPopupProfileCheckboxCold.addEventListener('click', function(e) {
+    if (calcPopupProfileCheckboxWarm.checked) {
+      e.preventDefault();
+    }
+  });
+  calcPopupProfileCheckboxWarm.addEventListener('click', function(e) {
+    if (calcPopupProfileCheckboxCold.checked) {
+      e.preventDefault();
+    }
+  });
+
+  calcPopupProfileContinue.addEventListener('click', function(e) {
+     if (calcPopupProfileCheckboxWarm.checked || calcPopupProfileCheckboxCold.checked) {
+       calcInfo.select = calcPopupProfileSelect.options[calcPopupProfileSelect.selectedIndex].value;
+       if(calcPopupProfileCheckboxWarm.checked) {
+      calcInfo.checkbox = 'Warm';
+    } else if(calcPopupProfileCheckboxCold.checked) {
+      calcInfo.checkbox = 'Cold';
+    }
+    calcPopupProfile.style.display = 'none';
+    calcPopupEnd.style.display = 'block';
+     }
+    else {
+      e.preventDefault();
+    }
+  });
+  calcPopupEndClose.addEventListener('click', function() {
+    calcPopupEnd.style.display = 'none';
+    for (let key in calcInfo) {
+        delete calcInfo[key];
+    }
+  });
 
 
 });
