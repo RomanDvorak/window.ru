@@ -396,6 +396,67 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+  // timer
+  let deadline = '2019-07-04',
+      actionText = document.querySelector('.timer-Text');
 
+  function getTimeRemaining(endtime) {
+    let t = Date.parse(endtime) - Date.parse(new Date()),
+        seconds = Math.floor(t / 1000 % 60).toString(),
+        minutes = Math.floor(t / 1000 / 60 % 60).toString(),
+        hours = Math.floor(t / (1000 * 60 * 60)).toString(),
+        days = Math.floor(t / (1000 * 60 * 60 * 24)).toString();
+
+    if (seconds.length < 2) {
+      seconds = '0' + seconds;
+    }
+
+    if (minutes.length < 2) {
+      minutes = '0' + minutes;
+    }
+
+    if (hours.length < 2) {
+      hours = '0' + hours;
+    } else if(hours.length > 2) {
+      hours = hours.slice(2);
+    }
+    if (days.length < 2) {
+      days = '0' + days;
+    }
+
+    return {
+      'total': t,
+      'days': days,
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds
+    };
+  }
+
+  function setClock(id, endtime) {
+    let days = document.querySelector('.daysSpan'),
+        hours = document.querySelector('.hoursSpan'),
+        minutes = document.querySelector('.minutesSpan'),
+        seconds = document.querySelector('.secondsSpan'),
+        timeInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      let t = getTimeRemaining(endtime);
+      days.textContent = t.days;
+      hours.textContent = t.hours;
+      minutes.textContent = t.minutes;
+      seconds.textContent = t.seconds;
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+        days.textContent = '00';
+        hours.textContent = '00';
+        minutes.textContent = '00';
+        seconds.textContent = '00';
+      }
+    }
+  }
+
+  setClock('timer', deadline);
 
 });
