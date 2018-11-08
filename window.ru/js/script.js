@@ -397,32 +397,25 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
   // timer
-  let deadline = '2019-07-04',
+  let deadline = '2018-11-09',
       actionText = document.querySelector('.timer-Text');
 
   function getTimeRemaining(endtime) {
-    let t = Date.parse(endtime) - Date.parse(new Date()),
-        seconds = Math.floor(t / 1000 % 60).toString(),
-        minutes = Math.floor(t / 1000 / 60 % 60).toString(),
-        hours = Math.floor(t / (1000 * 60 * 60)).toString(),
-        days = Math.floor(t / (1000 * 60 * 60 * 24)).toString();
+    let t = Date.parse(endtime) - Date.parse(new Date()) +
+      new Date().getTimezoneOffset() * 60000,
+        seconds = addZero(Math.floor(t / 1000 % 60)),
+        minutes = addZero(Math.floor(t / 1000 / 60 % 60)),
+        hours = addZero(Math.floor(t / (1000 * 60 * 60))),
+        days = addZero(Math.floor(t / (1000 * 60 * 60 * 24)));
 
-    if (seconds.length < 2) {
-      seconds = '0' + seconds;
+    function addZero(num) {
+      if (num >= 0 && num < 10) {
+        return '0' + num;
+      } else {
+        return num;
+      }
     }
 
-    if (minutes.length < 2) {
-      minutes = '0' + minutes;
-    }
-
-    if (hours.length < 2) {
-      hours = '0' + hours;
-    } else if(hours.length > 2) {
-      hours = hours.slice(2);
-    }
-    if (days.length < 2) {
-      days = '0' + days;
-    }
 
     return {
       'total': t,
